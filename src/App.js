@@ -1,23 +1,38 @@
-import logo from './logo.svg';
 import './App.css';
+import * as React from 'react';
+import {Routes, Route} from 'react-router-dom';
+const Home = React.lazy(()=> import('./Components/Home/Home'))
+const Login = React.lazy(()=> import('./Components/Login/Login'))
+const Signup = React.lazy(()=> import('./Components/Signup/Signup'))
+const Welcome = React.lazy(()=> import('./Components/Welcome/Welcome'))
+const Navbar = React.lazy(()=> import('./Components/Navbar/Navbar'))
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Navbar></Navbar>
+      <Routes>
+        <Route path='/' element={
+          <React.Suspense fallback={<>...</>}>
+            <Home />
+          </React.Suspense>
+        }></Route>
+        <Route path='login' element={
+          <React.Suspense fallback={<>...</>}>
+            <Login />
+          </React.Suspense>
+        }></Route>
+        <Route path='signup' element={
+          <React.Suspense fallback={<>...</>}>
+            <Signup />
+          </React.Suspense>
+        }></Route>
+        <Route path='welcome' element={
+          <React.Suspense fallback={<>...</>}>
+            <Welcome />
+          </React.Suspense>
+        }></Route>
+      </Routes>
     </div>
   );
 }

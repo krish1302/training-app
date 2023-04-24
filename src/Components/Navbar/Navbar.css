@@ -1,0 +1,15 @@
+nav {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.nav-link{
+    border: none;
+    text-decoration: none;
+}
+
+.active {
+    color: green;
+    border-bottom: 2px solid green;
+}
