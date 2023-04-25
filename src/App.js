@@ -27,7 +27,7 @@ function App() {
             <Signup />
           </React.Suspense>
         }></Route>
-        <Route path='welcome' element={
+        <Route path='welcome/:userName' element={
           <React.Suspense fallback={<>...</>}>
             <Welcome />
           </React.Suspense>
