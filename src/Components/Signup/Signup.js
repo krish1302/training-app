@@ -25,14 +25,15 @@ class Signup extends Component {
             name: this.nameRef.current.value
         }
 
-        axios.post('http://localhost:3500/user', data)
-          .then(function (response) {
-            console.log(response);
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
+        console.log(data)
 
+        // axios.post('http://localhost:3500/user', data)
+        //   .then(function (response) {
+        //     console.log(response);
+        //   })
+        //   .catch(function (error) {
+        //     console.log(error);
+        //   });
 
     }
 

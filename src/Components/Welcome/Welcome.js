@@ -1,22 +1,23 @@
 import React, { Component } from 'react'
+import { withRouter } from '../Services/withRouter'
+import UserTable from '../UsersTable/UserTable'
 
 class Welcome extends Component {
   constructor(props) {
     super(props)
-    console.log(props)
     this.state = {
        
     }
   }
   render() {
-
-    const urlParams = new URLSearchParams(window.location.search)
-    const id = urlParams.getAll('userName')
-    console.log(urlParams)
+    const userName = this.props.router.params.userName
     return (
-      <div>Welcome {id}</div>
+      <>
+        <div>Welcome {userName}</div>
+        <UserTable/>
+      </>
     )
   }
 }
 
-export default Welcome
+export default withRouter(Welcome)

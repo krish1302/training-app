@@ -1,7 +1,8 @@
 import React, { Component, createRef } from 'react'
 import './Login.css'
 import axios from 'axios'
-import { Navigate } from 'react-router-dom'
+// import { Navigate } from 'react-router-dom'
+import { withRouter } from '../Services/withRouter'
 
 class Login extends Component {
   constructor(props) {
@@ -58,30 +59,32 @@ class Login extends Component {
   login = () => {
     
     let email_val = this.emailRef.current.value
-    var local = this
+    // var local = this
 
-    axios.get('http://localhost:3500/user/'+ email_val)
-    .then(function (response) {
-      console.log(response);
-      if(response.data.message === "email exists"){
-        local.setState({
-          welcome : true
-        })
-      }
-    })
-    .catch(function (error) {
-      console.log(error);
-      local.setState({
-        welcome : false
-      })
-    });
+    this.props.navigate('/welcome/'+email_val)
+
+
+
+    // axios.get('http://localhost:3500/user/'+ email_val)
+    // .then(function (response) {
+    //   console.log(response);
+    //   if(response.data.message === "email exists"){
+    //     local.props.router.navigate('/welcome/'+ email_val)
+    //   }
+    // })
+    // .catch(function (error) {
+    //   console.log(error);
+    //   // local.setState({
+    //   //   welcome : false
+    //   // })
+    // });
   }
 
 
   render() {
     return (
       <>
-      {this.state.welcome && <Navigate to='/welcome/user1'/>}
+      {/* {this.state.welcome && <Navigate to='/welcome/user1'/>} */}
       <div className="login-div">
         <div className="mb-3">
           <label htmlFor="email" className="form-label">Email address</label>
@@ -101,4 +104,4 @@ class Login extends Component {
   }
 }
 
-export default Login
+export default withRouter(Login)
