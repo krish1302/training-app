@@ -65,21 +65,23 @@ class Books extends Component {
     }
 
     editBook = () => {
-        let data = {
-            name: this.nameRef.current.value,
-            author: this.authorRef.current.value,
-            page: this.pageRef.current.value
+        var data = {
+            name: this.state.editName,
+            author: this.state.editAuthor,
+            page: this.state.editPage
         }
 
         var local = this
 
-        axios.post('https://crudcrud.com/api/36d9fcdc70f540eda491c4fd7e0b644b/books', data)
-            .then(res => {
-                local.refresh_books()
-            })
-            .catch(err => {
-                console.log(err)
-            }) 
+        axios.put('https://crudcrud.com/api/36d9fcdc70f540eda491c4fd7e0b644b/books/'+this.state.editId, data)
+        .then(res => {
+            console.log(res)
+            local.refresh_books()
+        })
+        .catch(err=>{
+            console.log(err)
+        })
+
     }
 
     updateBook = (book)=> {
@@ -87,6 +89,20 @@ class Books extends Component {
         // this.editNameRef.current.value = book.name
         // this.editAuthorRef.current.value = book.author
         // this.editPageRef.current.value = book.page
+
+        this.setState({
+            editId: book._id,
+            editName: book.name,
+            editAuthor: book.author,
+            editPage: book.page
+        })
+    }
+
+    editInputChagne = (event) =>{
+        this.setState({
+            ...this.state,
+            [event.target.name] : event.target.value
+        })
     }
 
 
@@ -148,30 +164,30 @@ class Books extends Component {
                     <div className="modal-dialog">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h1 className="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                                <h1 className="modal-title fs-5" id="exampleModalLabel">Edit Book</h1>
                                 <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div className="modal-body">
                                 <div className="login-div">
                                     <div className="mb-3">
                                         <label htmlFor="edit_name" className="form-label">Book Name</label>
-                                        <input type="text" className="form-control" id="edit_name" placeholder="enter book name" ref={this.editNameRef} />
+                                        <input type="text" className="form-control" id="edit_name" name="editName" placeholder="enter book name" value={this.state.editName} onChange={(event)=> this.editInputChagne(event)}/>
                                     </div>
                                     {/* <small>{this.state.email_hint}</small> */}
                                     <div className="mb-3">
                                         <label htmlFor="edit_author" className="form-label">Author Name</label>
-                                        <input type="text" className="form-control" id="edit_author" placeholder="enter author name" ref={this.editAuthorRef} />
+                                        <input type="text" className="form-control" id="edit_author" name="editAuthor" placeholder="enter author name" value={this.state.editAuthor} onChange={(event)=> this.editInputChagne(event)} />
                                     </div>
                                     {/* <small>{this.state.password_hint}</small> */}
                                     <div className="mb-3">
                                         <label htmlFor="edit_pages" className="form-label">pages</label>
-                                        <input type="number" className="form-control" id="edit_pages" placeholder="pages" ref={this.editPageRef} />
+                                        <input type="number" className="form-control" id="edit_pages" name="editPage" placeholder="pages" value={this.state.editPage} onChange={(event)=> this.editInputChagne(event)}/>
                                     </div>
                                 </div>
                             </div>
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" className="btn btn-primary" onClick={()=> this.editBook()}>Save changes</button>
+                                <button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={()=> this.editBook()}>Save changes</button>
                             </div>
                         </div>
                     </div>
