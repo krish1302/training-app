@@ -25,7 +25,7 @@ class Books extends Component {
     }
 
     componentDidMount() {
-        axios.get('https://crudcrud.com/api/36d9fcdc70f540eda491c4fd7e0b644b/books')
+        axios.get('https://crudcrud.com/api/449a164967434593840a78be22d3acfd/books')
             .then(res => {
                 console.log(res.data)
                 this.setState({ books: res.data })
@@ -36,7 +36,7 @@ class Books extends Component {
     }
 
     refresh_books = () => {
-        axios.get('https://crudcrud.com/api/36d9fcdc70f540eda491c4fd7e0b644b/books')
+        axios.get('https://crudcrud.com/api/449a164967434593840a78be22d3acfd/books')
             .then(res => {
                 console.log(res.data)
                 this.setState({ books: res.data })
@@ -55,7 +55,7 @@ class Books extends Component {
 
         var local = this
 
-        axios.post('https://crudcrud.com/api/36d9fcdc70f540eda491c4fd7e0b644b/books', data)
+        axios.post('https://crudcrud.com/api/449a164967434593840a78be22d3acfd/books', data)
             .then(res => {
                 local.refresh_books()
             })
@@ -73,18 +73,18 @@ class Books extends Component {
 
         var local = this
 
-        axios.put('https://crudcrud.com/api/36d9fcdc70f540eda491c4fd7e0b644b/books/'+this.state.editId, data)
-        .then(res => {
-            console.log(res)
-            local.refresh_books()
-        })
-        .catch(err=>{
-            console.log(err)
-        })
+        axios.put('https://crudcrud.com/api/449a164967434593840a78be22d3acfd/books/' + this.state.editId, data)
+            .then(res => {
+                console.log(res)
+                local.refresh_books()
+            })
+            .catch(err => {
+                console.log(err)
+            })
 
     }
 
-    updateBook = (book)=> {
+    updateBook = (book) => {
         // this.editIdRef.current.value = book.id
         // this.editNameRef.current.value = book.name
         // this.editAuthorRef.current.value = book.author
@@ -98,13 +98,24 @@ class Books extends Component {
         })
     }
 
-    editInputChagne = (event) =>{
+    editInputChagne = (event) => {
         this.setState({
             ...this.state,
-            [event.target.name] : event.target.value
+            [event.target.name]: event.target.value
         })
     }
 
+    deleteBook = () => {
+        var local = this
+        axios.delete('https://crudcrud.com/api/449a164967434593840a78be22d3acfd/books/'+this.state.editId)
+        .then(res => {
+            console.log(res)
+            local.refresh_books()
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }
 
     render() {
         return (
@@ -137,6 +148,7 @@ class Books extends Component {
                             <th scope="col">Author</th>
                             <th scope="col">No of pages</th>
                             <th scope='col'>Edit</th>
+                            <th scope='col'>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -148,7 +160,8 @@ class Books extends Component {
                                         <td>{book.name}</td>
                                         <td>{book.author}</td>
                                         <td>{book.page}</td>
-                                        <td><button className='btn btn-primary' data-bs-toggle="modal" data-bs-target="#editBook" onClick={()=> this.updateBook(book)}>edit</button></td>
+                                        <td><button className='btn btn-primary' data-bs-toggle="modal" data-bs-target="#editBook" onClick={() => this.updateBook(book)}>edit</button></td>
+                                        <td><button className='btn btn-warning' data-bs-toggle="modal" data-bs-target="#deleteBook" onClick={() => this.updateBook(book)}>Delete</button></td>
                                     </tr>
                                 )
                             })
@@ -159,7 +172,7 @@ class Books extends Component {
 
 
 
-                {/* model */}
+                {/* edit model */}
                 <div className="modal fade" id="editBook" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div className="modal-dialog">
                         <div className="modal-content">
@@ -171,27 +184,49 @@ class Books extends Component {
                                 <div className="login-div">
                                     <div className="mb-3">
                                         <label htmlFor="edit_name" className="form-label">Book Name</label>
-                                        <input type="text" className="form-control" id="edit_name" name="editName" placeholder="enter book name" value={this.state.editName} onChange={(event)=> this.editInputChagne(event)}/>
+                                        <input type="text" className="form-control" id="edit_name" name="editName" placeholder="enter book name" value={this.state.editName} onChange={(event) => this.editInputChagne(event)} />
                                     </div>
                                     {/* <small>{this.state.email_hint}</small> */}
                                     <div className="mb-3">
                                         <label htmlFor="edit_author" className="form-label">Author Name</label>
-                                        <input type="text" className="form-control" id="edit_author" name="editAuthor" placeholder="enter author name" value={this.state.editAuthor} onChange={(event)=> this.editInputChagne(event)} />
+                                        <input type="text" className="form-control" id="edit_author" name="editAuthor" placeholder="enter author name" value={this.state.editAuthor} onChange={(event) => this.editInputChagne(event)} />
                                     </div>
                                     {/* <small>{this.state.password_hint}</small> */}
                                     <div className="mb-3">
                                         <label htmlFor="edit_pages" className="form-label">pages</label>
-                                        <input type="number" className="form-control" id="edit_pages" name="editPage" placeholder="pages" value={this.state.editPage} onChange={(event)=> this.editInputChagne(event)}/>
+                                        <input type="number" className="form-control" id="edit_pages" name="editPage" placeholder="pages" value={this.state.editPage} onChange={(event) => this.editInputChagne(event)} />
                                     </div>
                                 </div>
                             </div>
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={()=> this.editBook()}>Save changes</button>
+                                <button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={() => this.editBook()}>Save changes</button>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                {/* delete Model */}
+
+                
+                <div className="modal fade" id="deleteBook" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div className="modal-dialog">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h1 className="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div className="modal-body">
+                                Are you sure want to delete {this.state.editName}?
+                            </div>
+                            <div className="modal-footer">
+                                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={()=> this.deleteBook()}>Confirm</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
 
             </>
         )
