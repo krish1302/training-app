@@ -10,6 +10,7 @@ class Navbar extends Component {
         <NavLink to='/login' className='nav-link'>Login</NavLink>
         <NavLink to='/signup' className='nav-link'>Signup</NavLink>
         <NavLink to='/books' className='nav-link'>Books</NavLink>
+        <NavLink to='/htmlcss' className='nav-link'>Html_Css</NavLink>
       </nav>
     )
   }

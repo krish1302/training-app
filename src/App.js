@@ -7,6 +7,7 @@ const Signup = React.lazy(()=> import('./Components/Signup/Signup'))
 const Welcome = React.lazy(()=> import('./Components/Welcome/Welcome'))
 const Navbar = React.lazy(()=> import('./Components/Navbar/Navbar'))
 const Book = React.lazy(()=> import('./Components/Books/Books'))
+const HtmlCss = React.lazy(()=> import('./Components/Html_Css/HtmlCss'))
 
 function App() {
   return (
@@ -37,6 +38,13 @@ function App() {
         element ={
           <React.Suspense fallback={<>...</>}>
             <Book/>
+          </React.Suspense>
+        }
+        ></Route>
+        <Route path='htmlcss'
+        element ={
+          <React.Suspense fallback={<>...</>}>
+            <HtmlCss/>
           </React.Suspense>
         }
         ></Route>
