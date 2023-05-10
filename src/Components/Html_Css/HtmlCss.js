@@ -24,6 +24,41 @@ class HtmlCss extends Component {
                 </div>
             </div>
 
+            {/* display */}
+            <div className='dis-flex'>
+              <div className='box'>box 1</div>
+              <div className='box'>box 2</div>
+              <div className='box'>box 3</div>
+              <div className='box'>box 4</div>
+            </div>
+
+
+            <div className='dis-flex-1'>
+              <div className='dis-flex-2'>
+                <div className='box'>box 1</div>
+                <div className='box'>box 2</div>
+                <div className='box'>box 3</div>
+                <div className='box'>box 4</div>
+              </div>
+              <div className='dis-flex-3'>
+              <div className='box'>box 1</div>
+                <div className='box'>box 2</div>
+                <div className='box'>box 3</div>
+                <div className='box'>box 4</div>
+              </div>
+            </div>
+
+
+            <div className='dis-grid'>
+                <div className='box'>box 1</div>
+                <div className='box'>box 2</div>
+                <div className='box'>box 3</div>
+                <div className='box'>box 4</div>
+                <div className='box'>box 5</div>
+                <div className='box'>box 6</div>
+                <div className='box'>box 7</div>
+            </div>
+
         </>
       
     )
